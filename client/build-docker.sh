@@ -1,4 +1,4 @@
 docker version
-docker build -t SheperdAI-client .
+docker build -t sheperdclient:latest .
 docker image list
-docker tag SheperdAI-client jomin729/client:latest
+docker tag sheperdclient:latest jomin729/client:latest
