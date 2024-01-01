@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: angular-client
+spec:
+  selector:
+    app: angular-client
+  ports:
+    - protocol: 'TCP'
+      port: 8080
+      targetPort: 80
+  type: LoadBalancer

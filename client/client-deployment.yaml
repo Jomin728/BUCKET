@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: angular-client
+spec:
+  selector:
+    matchLabels:
+      app: angular-client
+  template:
+    metadata:
+      labels:
+        app: angular-client
+    spec:
+      containers:
+      - name: angular-client
+        image: jomin729/client:latest
+        imagePullPolicy: Always
