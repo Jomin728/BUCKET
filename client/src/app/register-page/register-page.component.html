@@ -1,0 +1,25 @@
+<div class="navbar">
+    <div class="bar-1">
+        <img src="../../assets/bucket-svgrepo-com.svg" alt="">
+        <p class="heading-1">Bucket</p>
+    </div>
+    <div class="bar-2">
+    </div>
+</div>
+<div class="emailSection">
+    <div class="row-1">
+        <p>Login or Sign Up </p>
+    </div>
+    <div class="row-2">
+    <p>Email</p>
+        <form [formGroup]="signUpForm">
+            <input class="inputField" type="text" placeholder="" formControlName="email">
+        </form>
+    <p class="warning-1" *ngIf="emailError.errors?.['required']">Email is required</p>
+    <p class="warning-2" *ngIf="emailError.errors?.['email']">Please enter a valid Email</p>
+    </div>
+    <div class="row-3">
+    <button class="button" type="button" (click)="onSubmit()">Continue</button>
+    <div>
+
+</div>
