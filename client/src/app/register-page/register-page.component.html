@@ -15,8 +15,8 @@
         <form [formGroup]="signUpForm">
             <input class="inputField" type="text" placeholder="" formControlName="email">
         </form>
-    <p class="warning-1" *ngIf="emailError.errors?.['required']">Email is required</p>
-    <p class="warning-2" *ngIf="emailError.errors?.['email']">Please enter a valid Email</p>
+    <p class="warning-1" *ngIf="showRequired && emailError.errors?.['required']">Email is required</p>
+    <p class="warning-2" *ngIf="showRequired && emailError.errors?.['email']">Please enter a valid Email</p>
     </div>
     <div class="row-3">
     <button class="button" type="button" (click)="onSubmit()">Continue</button>
