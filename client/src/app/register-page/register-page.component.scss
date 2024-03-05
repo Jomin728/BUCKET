@@ -5,10 +5,10 @@
     display: flex ;
     align-items: center;
     flex-direction: column;
-    padding-top: 10rem;
+    padding-top: 11rem;
     .row-1
     {   width: 20rem;
-        p
+        span,p
         {
             padding-bottom: 1rem;
             font-family: "Poppins", sans-serif;
@@ -16,12 +16,23 @@
             color: black; 
             font-size: 1.5rem;     
         }
+        img{
+            height: 4vh;
+            width: 3vw;
+            cursor: pointer;
+            padding-bottom: 1rem;
+        }
+        span{
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
     }
     .row-2
     {
         padding-top: 2rem;
         p
         {
+            padding-top: 1rem;
             padding-bottom: 1rem;
             font-family: "Poppins", sans-serif;
             font-weight: 400;  

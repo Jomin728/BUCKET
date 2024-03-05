@@ -1,7 +1,7 @@
 <div class="navbar">
     <div class="bar-1">
-        <img src="../../assets/bucket-svgrepo-com.svg" alt="">
-        <p class="heading-1">Bucket</p>
+        <img src="../../assets/bucket-svgrepo-com.svg" alt="" (click)="redirectToHome()">
+        <p class="heading-1" (click)="redirectToHome()">Bucket</p>
     </div>
     <div class="bar-2">
     </div>
@@ -25,6 +25,7 @@
 </div>
 <div *ngIf="!showEmailSection && showLoginSection" class="emailSection">
     <div class="row-1">
+       <div style="display: flex;" (click)="back()"><img src="../../assets/back-arrow.svg" alt=""><span>Back</span> </div>
         <p>Welcome Back </p>
     </div>
     <div class="row-4">
@@ -41,3 +42,31 @@
     <button class="button" type="button" (click)="login()">Log in</button>
     </div>
 </div>
+
+<div *ngIf="!showEmailSection && showSignUpSection" class="emailSection">
+    <div class="row-1">
+        <div style="display: flex;" (click)="back()"><img src="../../assets/back-arrow.svg" alt=""><span>Back</span> </div>
+        <p>Sign up for free </p>
+    </div>
+    <div class="row-2">
+        <form [formGroup]="registerForm">
+            <p>Email</p>
+            <input class="inputField" type="text" placeholder="" formControlName="email">
+            <p class="warning-1" *ngIf="showRequired && registerEmail.errors?.['required']">Email is required</p>
+            <p>Username</p>
+            <input class="inputField" type="text" placeholder="" formControlName="username">
+            <p class="warning-1" *ngIf="showRequired && registerUsername.errors?.['required']">Username is required</p>
+            <p>Password</p>
+            <input class="inputField" type="password" placeholder="" formControlName="password">
+            <p class="warning-1" *ngIf="showRequired && registerPassword.errors?.['required']">Password is required</p>
+        </form>
+    </div>
+    <div class="row-3">
+    <button class="button" type="button" (click)="register()">Sign up </button>
+    </div>
+    <div class="row-2">
+        <p class="warning-1" *ngIf="registerError.length != 0">{{registerError}}</p>
+    </div>
+
+</div>
+

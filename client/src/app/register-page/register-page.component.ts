@@ -25,11 +25,17 @@ public showEmailSection = true;
 public showLoginSection = false;
 public showSignUpSection = false
 public username=''
+public registerError = ''
 signUpForm = new FormGroup({
   email: new FormControl('',[Validators.email,Validators.required]),
 })
 LogInForm = new FormGroup({
   password: new FormControl('',[Validators.required]),
+})
+registerForm = new FormGroup({
+  email: new FormControl('',[Validators.email,Validators.required]),
+  username:new FormControl('',[Validators.required]),
+  password:new FormControl('',[Validators.required])
 })
 
 get emailError() {
@@ -37,6 +43,18 @@ get emailError() {
 } 
 get password(){
   return this.LogInForm.get('password')
+}
+get registerEmail()
+{
+  return this.registerForm.get('email');
+}
+get registerUsername()
+{
+  return this.registerForm.get('username');
+}
+get registerPassword()
+{
+  return this.registerForm.get('password');
 }
 onSubmit()
 {
@@ -61,23 +79,87 @@ onSubmit()
         this.username=data[0]['username']
         this.showLoginSection = true;
         this.showEmailSection = false;
+        this.showSignUpSection = false;
+        this.showRequired = false
+
     }
     else
-    this.showSignUpSection = true;
-    this.showEmailSection = false;
+    {
+        let registerData = {
+          email:value ,
+          username:'',
+          password:''
+        };
+    
+      this.registerForm.setValue(registerData) 
+      this.showLoginSection = false
+      this.showSignUpSection = true;
+      this.showEmailSection = false;  
+      this.showRequired = false
+    }
   })
 }
 login()
 {
-
+  this.showRequired = true
+  if(!this.LogInForm.valid)
+  {
+    return;
+  }
   let password:any=this.LogInForm.value.password
     const headers = new HttpHeaders()
     .set('Content-Type', 'application/json')
 
   this.http.post('http://localhost:8000/login',{'username':this.username,'password':password,},{'headers':headers}).subscribe((data)=>{
     console.log(data)
+    if(data['message'] == 'Login Attempt Failed.')
+    return;
     this.router.navigateByUrl('/home', {});
   })
+
+}
+register()
+{
+  this.showRequired = true
+  if(!this.registerForm.valid)
+  return;
+  console.log(this.registerForm.value)
+  const headers = new HttpHeaders()
+  .set('Content-Type', 'application/json')
+  this.http.post('http://localhost:8000/register',{'email':this.registerForm.value.email,'username':this.registerForm.value.username,'password':this.registerForm.value.password},{'headers':headers}).subscribe((data)=>{
+    console.log(data)
+    if(data['message'] == 'Successful')
+    this.router.navigateByUrl('/home', {});
+    else
+    this.registerError = data['message']
+      
+  })
+}
+redirectToHome()
+{
+  this.router.navigateByUrl('/landingPage', {});
+}
+resetForms()
+{
+this.registerError = ''
+let registerData = {
+  email:'' ,
+  username:'',
+  password:''
+};
+let passwordData = {
+  password:''
+}
+this.LogInForm.setValue(passwordData)
+this.registerForm.setValue(registerData) 
+}
+back()
+{
+   this.showRequired = false;
+   this.showEmailSection = true;
+   this.showLoginSection = false;
+   this.showSignUpSection = false
+   this.resetForms()
 
 }
 
