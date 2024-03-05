@@ -6,7 +6,7 @@
     <div class="bar-2">
     </div>
 </div>
-<div class="emailSection">
+<div *ngIf="showEmailSection" class="emailSection">
     <div class="row-1">
         <p>Login or Sign Up </p>
     </div>
@@ -20,6 +20,24 @@
     </div>
     <div class="row-3">
     <button class="button" type="button" (click)="onSubmit()">Continue</button>
-    <div>
+    </div>
 
+</div>
+<div *ngIf="!showEmailSection && showLoginSection" class="emailSection">
+    <div class="row-1">
+        <p>Welcome Back </p>
+    </div>
+    <div class="row-4">
+        <p>Log in using {{emailError.value}} </p>
+    </div>
+    <div class="row-2">
+    <p>Password</p>
+        <form [formGroup]="LogInForm">
+            <input class="inputField" type="password" placeholder="" formControlName="password">
+        </form>
+    <p class="warning-1" *ngIf="showRequired && password.errors?.['required']">Password is required</p>
+    </div>
+    <div class="row-3">
+    <button class="button" type="button" (click)="login()">Log in</button>
+    </div>
 </div>

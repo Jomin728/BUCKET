@@ -61,6 +61,16 @@
 
         }
     }
+    .row-4
+    {
+        
+        @extend .row-1;
+        p{
+            font-size: 1rem;
+            padding-bottom: 0.1rem
+        }
+
+    }
 
 }
 
