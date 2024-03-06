@@ -1,1 +1,33 @@
-<p>home-page works!</p>
+<div class="homePage">
+<div class="navSection">
+    <div class="bar-1">
+        <img src="../../assets/bucket-svgrepo-com.svg" alt="">
+        <p class="heading-1">Bucket</p>
+    </div>
+    <div *ngFor="let item of list" class="navItem">
+        <img [src]="item.imageUrl" alt="">
+        <p class="heading-1">{{item['title']}}</p>
+    </div>
+    <div (click) = "showLess()">
+        <div *ngIf="!showMore" class="navItem">
+        <img src="../../assets/right-arrow.svg" alt="">
+        <p class="heading-1">More</p>
+        </div>
+        <div *ngIf="showMore" class="navItem">
+        <img src="../../assets/down-arrow.svg" alt="">
+        <p class="heading-1">Less</p>
+        </div>
+    </div>
+    <div *ngFor="let item of moreNavItems" class="navItem">
+        <ng-container *ngIf="showMore">
+            <img [src]="item.imageUrl" alt="">
+            <p class="heading-1">{{item['title']}}</p>
+        </ng-container>
+
+    </div>
+</div>
+<div class="functionalSection">
+    <div class="searchBar">
+    </div>
+</div>
+</div>

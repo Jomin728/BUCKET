@@ -1,0 +1,74 @@
+@import "../landing-page/landing-page.component.scss";
+
+.homePage
+{
+    display: grid;
+    grid-template-columns: 13% 85%;
+    grid-column-gap: 1%;
+  .navSection
+  {
+    background-color: #bbb5ae3b;
+    height: 100vh;
+    .bar-1
+    {
+        display: flex;
+        font-size: 3vh;
+        align-items: center;
+        width: 100%;
+        padding: 1rem 1rem;
+        img
+        {
+            height: 5vh;
+            width: 5vw;
+            cursor: pointer;
+        }
+        p
+        {
+            cursor: pointer;
+        }
+        .heading-1
+        {
+         margin: 0rem !important;
+         font-family: "Madimi One", sans-serif;
+         font-weight: 400;
+         font-style: normal;          
+         color: black;
+         font-size: 4vh;
+
+        }
+    
+    }
+    .navItem
+    {
+        color: rgba(82,74,62,.82);
+        cursor: pointer;
+        display: flex;
+        font-size: 1.5vh;
+        align-items: center;
+        width: 100%;
+        padding: 1rem 1rem;
+        img
+        {
+            height: 3vh;
+            width: 3vw;
+        }
+        .heading-1
+        {
+         padding-left: 1rem; ;
+         margin: 0rem !important;
+         font-family: "Poppins", sans-serif;
+         font-weight: 400;
+         font-style: normal;          
+        }
+
+    }
+    .navItem:hover{
+        color: black;
+        background-color: #a7a19a3b;
+    }
+  }
+  .homeSection
+  {
+    
+  }
+}
