@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import {CommonModule} from '@angular/common';
+import { Search } from 'carbon-components-angular';
+import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterOutlet],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss'
 })
@@ -38,5 +40,9 @@ export class HomePageComponent {
   public showLess()
   {
     this.showMore = !this.showMore
+  }
+  public onSearch(value)
+  {
+    console.log(value)
   }
 }

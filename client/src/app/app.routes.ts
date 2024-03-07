@@ -3,10 +3,15 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { GeneralSectionComponent } from './general-section/general-section.component';
 export const routes: Routes = [
     {path:'', redirectTo:'/landingPage',pathMatch:'full'},
     {path:'landingPage',component:LandingPageComponent},
     {path:'login',component:RegisterPageComponent},
     {path:'register',component:RegisterPageComponent},
-    {path:'home',component:HomePageComponent}
+    {path:'home',component:HomePageComponent,
+    children:[
+        {path:'',component:GeneralSectionComponent}
+    ]
+}
 ];

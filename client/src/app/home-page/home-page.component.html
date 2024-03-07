@@ -28,6 +28,11 @@
 </div>
 <div class="functionalSection">
     <div class="searchBar">
+        <img src="../../assets/search-svgrepo-com.svg" alt="">
+        <input type="search" (input)="onSearch($event.target.value)" placeholder="Search">
+    </div>
+    <div class="childOutlet">
+        <router-outlet></router-outlet>
     </div>
 </div>
 </div>

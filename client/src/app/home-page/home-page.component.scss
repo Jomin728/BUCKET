@@ -3,7 +3,7 @@
 .homePage
 {
     display: grid;
-    grid-template-columns: 13% 85%;
+    grid-template-columns: 18% 80%;
     grid-column-gap: 1%;
   .navSection
   {
@@ -43,7 +43,7 @@
         color: rgba(82,74,62,.82);
         cursor: pointer;
         display: flex;
-        font-size: 1.5vh;
+        font-size: 1rem;
         align-items: center;
         width: 100%;
         padding: 1rem 1rem;
@@ -67,8 +67,42 @@
         background-color: #a7a19a3b;
     }
   }
-  .homeSection
+  .functionalSection
   {
+    .searchBar
+    {
+        margin-top: 1rem;
+        margin-left: 1.5rem;
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        width: 55%;
+        border: 1px solid rgba(82,74,62,.82) ;
+        img
+        {
+            height: 2rem;
+            width: 2rem;
+        }
+        input{
+            height: 2rem;
+            border-width: 0px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;   
+            font-size: 1.2rem; 
+            width: 100%;
+            padding-left: 1rem;
     
+
+        }
+        input:focus{
+            outline: none;
+        }
+
+    }
+    .childOutlet
+    {
+        margin-left: 1.5rem;
+        margin-top: 1rem;
+    }
   }
 }
