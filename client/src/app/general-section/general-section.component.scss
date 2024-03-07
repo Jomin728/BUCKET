@@ -7,6 +7,7 @@
 
         .row-1-item
         {
+            position: relative;
             cursor: pointer;
             padding: 0.8rem;
             width: 9rem;
@@ -28,6 +29,16 @@
             {
                 height: 2rem;
                 width: 2rem;
+            }
+            .input-uploader
+            {
+                position: absolute;
+                top:0;
+                left: 0;
+                width: 9rem;
+                height: 5rem;
+                opacity: 0;
+                cursor: pointer;
             }
         }
     }

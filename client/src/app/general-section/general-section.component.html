@@ -5,8 +5,17 @@
         <p>Create</p>
       </div>
       <div class="row-1-item">
+        <form method="post" enctype="multipart/form-data">
         <img src="../../assets/upload.svg" alt="">
         <p>Upload</p>
+        <input
+        #fileInput
+        class="input-uploader"
+        type="file"
+        (change)="onFilesAdded()"
+        multiple
+        > 
+        </form>
       </div>
       <div class="row-1-item">
         <img src="../../assets/folder.svg" alt="">
