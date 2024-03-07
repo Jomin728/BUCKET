@@ -1,0 +1,34 @@
+.generalSection
+{
+    .row-1
+    {
+        display: flex;
+        gap: 1rem;
+
+        .row-1-item
+        {
+            cursor: pointer;
+            padding: 0.8rem;
+            width: 9rem;
+            height: 5rem;
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;   
+            border: 1px solid gray;
+            &.item-1
+            {
+                background-color: rgb(60, 60, 255);
+                color: white;
+            }
+            &.item-1:hover{
+                background-color: blue;
+                color: white;
+
+            }
+            img
+            {
+                height: 2rem;
+                width: 2rem;
+            }
+        }
+    }
+}
