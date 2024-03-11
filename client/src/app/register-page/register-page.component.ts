@@ -58,10 +58,7 @@ get registerPassword()
 }
 onSubmit()
 {
-  // console.log(this.signUpForm.value)
-  // console.log(this.signUpForm.valid)
-  // console.log(this.signUpForm.controls.email.errors)
-    this.showRequired = true
+  this.showRequired = true
   if(!this.signUpForm.valid)
   {
     return;
@@ -73,8 +70,8 @@ onSubmit()
     .set('Content-Type', 'application/json')
 
   this.http.get('http://localhost:8000/userSearch',{'params':params,'headers':headers}).subscribe((data:any)=>{
-    console.log(data)
-    if(data.length !=0)
+
+  if(data.length !=0)
     {
         this.username=data[0]['username']
         this.showLoginSection = true;
@@ -111,10 +108,12 @@ login()
     .set('Content-Type', 'application/json')
 
   this.http.post('http://localhost:8000/login',{'username':this.username,'password':password,},{'headers':headers}).subscribe((data)=>{
-    console.log(data)
+    
     if(data['message'] == 'Login Attempt Failed.')
     return;
-    this.router.navigateByUrl('/home', {});
+    setTimeout(() => {
+      this.router.navigateByUrl('/home', {});
+    }, 1000);
   })
 
 }
@@ -123,11 +122,11 @@ register()
   this.showRequired = true
   if(!this.registerForm.valid)
   return;
-  console.log(this.registerForm.value)
+  
   const headers = new HttpHeaders()
   .set('Content-Type', 'application/json')
   this.http.post('http://localhost:8000/register',{'email':this.registerForm.value.email,'username':this.registerForm.value.username,'password':this.registerForm.value.password},{'headers':headers}).subscribe((data)=>{
-    console.log(data)
+    
     if(data['message'] == 'Successful')
     this.router.navigateByUrl('/home', {});
     else

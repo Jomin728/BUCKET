@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import { Search } from 'carbon-components-angular';
 import { RouterOutlet } from '@angular/router';
+import { HostListener } from '@angular/core';
 @Component({
   selector: 'app-home-page',
   standalone: true,

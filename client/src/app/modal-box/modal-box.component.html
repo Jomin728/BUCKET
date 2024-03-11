@@ -1,0 +1,17 @@
+<div class="modal" *ngIf="showModal">
+<div class="modal-content">
+<div class="row-1">
+ <div class="title">
+    <img src="../../assets/files-fill.svg" alt="">
+    <p class="heading-1">{{fileList['filename']}}</p>
+ </div>
+ <div class="close" (click)="closeModal()">
+    <img src="../../assets/close-circle-svgrepo-com.svg" alt="">
+ </div>
+</div>
+<div class="row-2">
+  <p class="title">Share this file</p>
+  <p>Anyone with this link can view</p>
+</div>
+</div>
+</div>

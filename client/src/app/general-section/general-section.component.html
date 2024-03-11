@@ -22,4 +22,26 @@
         <p>Create Folder</p>
       </div>
     </div>
+    <div class="row-2">
+     <p>All Files</p><img src="../../assets/settings-svgrepo-com.svg" alt="">
+    </div>
+    <div class="row-3">
+     <div *ngFor="let item of filesList;let i = index;" class="card">
+      <div class="thumbnail">
+       <img src="../../assets/folder.svg">
+        <img [ngClass]="item['optionVisibility'] ? 'optionsVisible': 'options'" src="../../assets/hamburger.svg" (click)="showOptions(i)">
+        <div class="navbar" *ngIf="item['optionVisibility']">
+          <div *ngFor="let item of list" class="navItem" (click)="fileaction(item,i)">
+            <img [src]="item.imageUrl" alt="">
+            <p class="heading-1">{{item['title']}}</p>
+          </div>  
+        </div>
+      </div>
+      <div class="thumbnail-title">
+      <p>{{item['filename']}}</p>
+      <p>{{item['mimetype:']}}</p>
+      </div>
+     </div>
+    </div>
 </div>
+<app-modal-box></app-modal-box>
