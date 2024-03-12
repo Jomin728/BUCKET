@@ -23,8 +23,11 @@
       </div>
     </div>
     <div class="row-2">
-     <p>All Files</p><img src="../../assets/settings-svgrepo-com.svg" alt="">
+     <p>{{title}}</p><img src="../../assets/settings-svgrepo-com.svg" alt="">
     </div>
+    <div class="row-2" *ngIf="filesList.length == 0">
+      <p>No files Found</p>
+      </div>
     <div class="row-3">
      <div *ngFor="let item of filesList;let i = index;" class="card">
       <div class="thumbnail">

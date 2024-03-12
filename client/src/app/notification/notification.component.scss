@@ -1,0 +1,39 @@
+.notification-body
+{
+    position: absolute;
+    padding: 1.5rem;
+    top: 0;
+    right: 0;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;   
+    width: 30%;          
+    .notification-item
+    {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        margin-top: 0.5rem;
+        background-color: black;
+        color: white;
+        border-radius: 1rem;
+        .content
+        {
+            display: flex;
+            align-items: center;
+            img{
+                height: 2rem;
+                width: 2rem;
+                padding-right:0.3rem;
+            }
+        }
+        .close
+        {
+            img{
+                height: 1.5rem;
+                width: 1.5rem;
+            }
+        }
+    }
+}

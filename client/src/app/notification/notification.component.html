@@ -1,0 +1,11 @@
+<div class="notification-body" *ngIf="notificationList.length!=0">
+  <div class="notification-item" *ngFor="let item of notificationList">
+    <div class="content">
+        <img [src]="item['imageUrl']">
+        <p>{{item['title']}}</p>
+    </div>
+    <!-- <div class="close">
+        <img src="../../assets/close-circle-svgrepo-com.svg">
+    </div> -->
+  </div>
+</div>

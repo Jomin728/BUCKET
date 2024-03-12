@@ -3,14 +3,24 @@ import {CommonModule} from '@angular/common';
 import { Search } from 'carbon-components-angular';
 import { RouterOutlet } from '@angular/router';
 import { HostListener } from '@angular/core';
+import { MessengerService } from '../messenger.service';
+import { title } from 'process';
+import { NotificationModule } from 'carbon-components-angular';
+import { NotificationComponent } from '../notification/notification.component';
+
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [CommonModule,RouterOutlet],
+  imports: [CommonModule,RouterOutlet,NotificationModule,NotificationComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss'
 })
 export class HomePageComponent {
+
+  constructor(public messageService:MessengerService)
+  {
+
+  }
 
   public showMore = false;
   public list = [
@@ -24,7 +34,7 @@ export class HomePageComponent {
     },
     {
       imageUrl:"../../assets/request.svg",
-      title:"Shared"
+      title:"Shared with me"
     }
   ]
 
@@ -45,5 +55,10 @@ export class HomePageComponent {
   public onSearch(value)
   {
     console.log(value)
+  }
+  public showSelection(item)
+  {
+    
+    this.messageService.eventEmit.emit({title:item['title']})
   }
 }

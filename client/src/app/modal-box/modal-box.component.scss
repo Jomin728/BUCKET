@@ -34,7 +34,7 @@
 
     }
     .close
-    {
+    {cursor: pointer;
         img{
             height: 3rem;
             width: 3rem;
@@ -54,5 +54,54 @@
     }
     
   }
+  .row-3
+  {
+      padding-top: 2rem;
+      p
+      {
+          padding-top: 1rem;
+          padding-bottom: 1rem;
+          font-family: "Poppins", sans-serif;
+          font-weight: 400;  
+          color: rgba(82,74,62,.82); 
+
+      }
+      [class^="warning-"]
+      {
+        color: red;
+      }
+      .inputField
+      {
+          background-color: white;
+          border: 2px solid rgba(82,74,62,.82);
+          height: 2rem;    
+          color: black;
+          width: 90%;
+          font-family: "Poppins", sans-serif;
+          font-weight: 400;   
+          font-size: 1.2rem;  
+          padding-left: 0.3rem;
+ 
+      }
+  }
+  .row-4
+  {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+      padding-top: 2rem;
+      .button{
+      width: 30%;
+      height: 3rem;    
+      @extend .inputField ;
+      font-weight: 600;   
+      border: 1px solid white;
+      cursor: pointer;
+      color: white;
+      background-color: #4141f3;
+      font-size: 1rem;     
+  }
+  }
+
   }
 }

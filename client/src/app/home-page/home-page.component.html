@@ -4,7 +4,7 @@
         <img src="../../assets/bucket-svgrepo-com.svg" alt="">
         <p class="heading-1">Bucket</p>
     </div>
-    <div *ngFor="let item of list" class="navItem">
+    <div *ngFor="let item of list" class="navItem" (click)="showSelection(item)">
         <img [src]="item.imageUrl" alt="">
         <p class="heading-1">{{item['title']}}</p>
     </div>
@@ -36,3 +36,4 @@
     </div>
 </div>
 </div>
+<app-notification></app-notification>
