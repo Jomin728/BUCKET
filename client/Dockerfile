@@ -6,6 +6,8 @@ RUN npm cache clean --force
 
 COPY . .
 
+WORKDIR /dist/src/app/client
+
 RUN npm install
 
 RUN npm run build 
