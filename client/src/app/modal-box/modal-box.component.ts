@@ -57,7 +57,7 @@ onSubmit()
   const headers = new HttpHeaders()
     .set('Content-Type', 'application/json')
   
-  this.http.post('http://localhost:8000/share-file',{...this.fileList},{'params':params,'headers':headers}).subscribe((data)=>{
+  this.http.post('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/share-file',{...this.fileList},{'params':params,'headers':headers}).subscribe((data)=>{
     this.showModal = false;
     this.signUpForm.value.email = ''
     this.messenger.eventEmit.emit({
