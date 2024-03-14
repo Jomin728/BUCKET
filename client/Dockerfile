@@ -9,10 +9,6 @@ RUN npm cache clean --force
 
 RUN npm cache verify
 
-RUN npm i npm@latest -g
-
-RUN npm i -g @angular/cli@latest
-
 RUN npm install
 
 RUN npm run build 
