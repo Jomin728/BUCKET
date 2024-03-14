@@ -2,7 +2,6 @@ FROM node:20-alpine as build
 
 WORKDIR /dist/src/app
 
-RUN npm cache clean --force
 
 COPY . .
 
