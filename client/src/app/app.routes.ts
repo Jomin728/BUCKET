@@ -5,7 +5,6 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { GeneralSectionComponent } from './general-section/general-section.component';
 export const routes: Routes = [
-    {path:'', redirectTo:'/landingPage',pathMatch:'full'},
     {path:'landingPage',component:LandingPageComponent},
     {path:'login',component:RegisterPageComponent},
     {path:'register',component:RegisterPageComponent},
@@ -14,5 +13,6 @@ export const routes: Routes = [
         {path:'general',component:GeneralSectionComponent},
         {path:'', redirectTo:'/home/general',pathMatch:'full'},
     ]
-}
+},
+{path:'', redirectTo:'/landingPage',pathMatch:'full'}
 ];
