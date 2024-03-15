@@ -5,6 +5,8 @@ WORKDIR /dist/src/app
 
 COPY . .
 
+RUN npm install npm@8.11.0 -g
+
 RUN npm cache clean --force
 
 RUN npm cache verify
