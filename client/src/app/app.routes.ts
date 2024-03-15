@@ -10,8 +10,7 @@ export const routes: Routes = [
     {path:'register',component:RegisterPageComponent},
     {path:'home',component:HomePageComponent,
     children:[
-        {path:'general',component:GeneralSectionComponent},
-        {path:'', redirectTo:'/home/general',pathMatch:'full'},
+        {path:'',component:GeneralSectionComponent}
     ]
 },
 {path:'', redirectTo:'/landingPage',pathMatch:'full'}

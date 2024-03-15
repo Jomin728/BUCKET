@@ -112,7 +112,7 @@ login()
     if(data['message'] == 'Login Attempt Failed.')
     return;
     setTimeout(() => {
-      this.router.navigateByUrl('/home/general', {});
+      this.router.navigateByUrl('/home', {});
     }, 1000);
   })
 
@@ -128,7 +128,7 @@ register()
   this.http.post('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/register',{'email':this.registerForm.value.email,'username':this.registerForm.value.username,'password':this.registerForm.value.password},{'headers':headers}).subscribe((data)=>{
     
     if(data['message'] == 'Successful')
-    this.router.navigateByUrl('/home/general', {});
+    this.router.navigateByUrl('/home', {});
     else
     this.registerError = data['message']
       
