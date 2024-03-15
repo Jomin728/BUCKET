@@ -1,9 +1,15 @@
-FROM node:20-alpine as build
+FROM node:20 as build
 
 WORKDIR /dist/src/app
 
 
 COPY . .
+
+RUN npm config set fetch-retry-mintimeout 20000
+RUN npm config set fetch-retry-maxtimeout 120000
+
+RUN npm config rm proxy
+RUN npm config rm https-proxy
 
 RUN npm install npm@8.11.0 -g
 
