@@ -9,7 +9,9 @@ RUN npm install npm@8.11.0 -g
 
 RUN npm cache clean --force
 
-RUN npm install
+RUN npm cache verify
+
+RUN NODE_ENV=development npm i
 
 RUN npm run build 
 
