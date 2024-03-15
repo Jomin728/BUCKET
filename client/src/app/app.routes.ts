@@ -11,7 +11,8 @@ export const routes: Routes = [
     {path:'register',component:RegisterPageComponent},
     {path:'home',component:HomePageComponent,
     children:[
-        {path:'',component:GeneralSectionComponent}
+        {path:'general',component:GeneralSectionComponent},
+        {path:'', redirectTo:'/home/general',pathMatch:'full'},
     ]
 }
 ];
