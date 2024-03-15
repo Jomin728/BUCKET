@@ -1,12 +1,23 @@
-FROM node:20.11.1-alpine as build
+FROM node:20.11 as build
 
 WORKDIR /dist/src/app
 
-RUN npm cache clean --force
 
 COPY . .
 
-RUN npm install
+RUN npm config set fetch-retry-mintimeout 20000
+RUN npm config set fetch-retry-maxtimeout 120000
+
+RUN npm config rm proxy
+RUN npm config rm https-proxy
+
+RUN npm i
+RUN npm cache clean --force
+
+RUN npm cache verify
+RUN npm i @angular/cli@17.0.8
+
+RUN  npm i
 
 RUN npm run build 
 
