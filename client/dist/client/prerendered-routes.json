@@ -1,7 +1,6 @@
 {
   "routes": [
     "/home",
-    "/home/general",
     "/landingPage",
     "/login",
     "/register"
