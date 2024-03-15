@@ -1,23 +1,12 @@
-FROM node:20 as build
+FROM node:20.11.1-alpine as build
 
 WORKDIR /dist/src/app
 
+RUN npm cache clean --force
 
 COPY . .
 
-RUN npm config set fetch-retry-mintimeout 20000
-RUN npm config set fetch-retry-maxtimeout 120000
-
-RUN npm config rm proxy
-RUN npm config rm https-proxy
-
-RUN npm install npm@8.11.0 -g
-
-RUN npm cache clean --force
-
-RUN npm cache verify
-
-RUN NODE_ENV=development npm i
+RUN npm install
 
 RUN npm run build 
 
