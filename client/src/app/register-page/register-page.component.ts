@@ -72,7 +72,7 @@ onSubmit()
     const headers = new HttpHeaders()
     .set('Content-Type', 'application/json')
 
-  this.http.get('http://localhost:8000/api/userSearch',{'params':params,'headers':headers}).subscribe((data:any)=>{
+  this.http.get('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/userSearch',{'params':params,'headers':headers}).subscribe((data:any)=>{
 
   if(data.length !=0)
     {
@@ -110,7 +110,7 @@ login()
     const headers = new HttpHeaders()
     .set('Content-Type', 'application/json')
 
-  this.http.post('http://localhost:8000/api/login',{'username':this.username,'password':password,},{'headers':headers}).subscribe((data)=>{
+  this.http.post('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/login',{'username':this.username,'password':password,},{'headers':headers}).subscribe((data)=>{
     
     if(data['message'] == 'Login Attempt Failed.')
     return;
@@ -128,7 +128,7 @@ register()
   
   const headers = new HttpHeaders()
   .set('Content-Type', 'application/json')
-  this.http.post('http://localhost:8000/api/register',{'email':this.registerForm.value.email,'username':this.registerForm.value.username,'password':this.registerForm.value.password},{'headers':headers}).subscribe((data)=>{
+  this.http.post('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/register',{'email':this.registerForm.value.email,'username':this.registerForm.value.username,'password':this.registerForm.value.password},{'headers':headers}).subscribe((data)=>{
     
     if(data['message'] == 'Successful')
     this.router.navigateByUrl('/home', {});

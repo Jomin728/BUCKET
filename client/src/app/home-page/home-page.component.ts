@@ -71,7 +71,7 @@ export class HomePageComponent implements OnInit{
   }
   public logout()
   {
-    this.http.post('http://localhost:8000/api/logout',{},{withCredentials:true}).subscribe((data:any)=>{
+    this.http.post('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/logout',{},{withCredentials:true}).subscribe((data:any)=>{
     this.router.navigateByUrl('/login', {});
      });
 
