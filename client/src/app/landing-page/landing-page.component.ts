@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component,afterNextRender } from '@angular/core';
 import { LinkModule } from 'carbon-components-angular';
 import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FileUploadService } from '../file-upload.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -12,9 +13,12 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrl: './landing-page.component.scss'
 })
 export class LandingPageComponent {
-  constructor( private router:Router)
+  constructor( private router:Router,public routerService:FileUploadService)
   {
-
+    afterNextRender(() => {
+      this.routerService.checkRoute('landingPage')
+    });
+  
   }
   public cards= [
     {title:'Store and protect your files',

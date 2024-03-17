@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,afterNextRender } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClient,HttpParams,HttpHeaders } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import {RouterModule} from '@angular/router';
-
+import { FileUploadService } from '../file-upload.service';
 
 @Component({
   selector: 'app-register-page',
@@ -16,8 +16,11 @@ import {RouterModule} from '@angular/router';
   styleUrl: './register-page.component.scss'
 })
 export class RegisterPageComponent {
-constructor(public http: HttpClient,private router:Router)
+constructor(public http: HttpClient,private router:Router,public routerService:FileUploadService)
 {
+  afterNextRender(() => {
+    this.routerService.checkRoute('login')
+  });
 
 }
 public showRequired = false;
@@ -69,7 +72,7 @@ onSubmit()
     const headers = new HttpHeaders()
     .set('Content-Type', 'application/json')
 
-  this.http.get('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/userSearch',{'params':params,'headers':headers}).subscribe((data:any)=>{
+  this.http.get('http://localhost:8000/api/userSearch',{'params':params,'headers':headers}).subscribe((data:any)=>{
 
   if(data.length !=0)
     {
@@ -107,7 +110,7 @@ login()
     const headers = new HttpHeaders()
     .set('Content-Type', 'application/json')
 
-  this.http.post('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/login',{'username':this.username,'password':password,},{'headers':headers}).subscribe((data)=>{
+  this.http.post('http://localhost:8000/api/login',{'username':this.username,'password':password,},{'headers':headers}).subscribe((data)=>{
     
     if(data['message'] == 'Login Attempt Failed.')
     return;
@@ -125,7 +128,7 @@ register()
   
   const headers = new HttpHeaders()
   .set('Content-Type', 'application/json')
-  this.http.post('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/register',{'email':this.registerForm.value.email,'username':this.registerForm.value.username,'password':this.registerForm.value.password},{'headers':headers}).subscribe((data)=>{
+  this.http.post('http://localhost:8000/api/register',{'email':this.registerForm.value.email,'username':this.registerForm.value.username,'password':this.registerForm.value.password},{'headers':headers}).subscribe((data)=>{
     
     if(data['message'] == 'Successful')
     this.router.navigateByUrl('/home', {});
@@ -138,6 +141,8 @@ redirectToHome()
 {
   this.router.navigateByUrl('/landingPage', {});
 }
+
+
 resetForms()
 {
 this.registerError = ''

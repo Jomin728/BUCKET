@@ -19,7 +19,7 @@ export class NotificationComponent implements OnInit {
   public notificationList = []
   ngOnInit(): void {
     this.messenger.messageListener().subscribe((data)=>{
-      debugger
+      
       if(data['type'] == "notification")
       {
         let item = {

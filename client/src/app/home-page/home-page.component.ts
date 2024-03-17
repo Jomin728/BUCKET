@@ -1,24 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit,afterNextRender } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import { Search } from 'carbon-components-angular';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { HostListener } from '@angular/core';
 import { MessengerService } from '../messenger.service';
 import { title } from 'process';
 import { NotificationModule } from 'carbon-components-angular';
 import { NotificationComponent } from '../notification/notification.component';
+import { HttpClient,HttpParams,HttpHeaders } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { FileUploadService } from '../file-upload.service';
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [CommonModule,RouterOutlet,NotificationModule,NotificationComponent],
+  imports: [CommonModule,RouterOutlet,NotificationModule,NotificationComponent,RouterModule],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss'
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit{
 
-  constructor(public messageService:MessengerService)
+  constructor(public messageService:MessengerService,public http: HttpClient,public router:Router,public routerService:FileUploadService)
   {
+    afterNextRender(() => {
+      this.routerService.checkRoute('home')
+    });
 
   }
 
@@ -37,7 +44,8 @@ export class HomePageComponent {
       title:"Shared with me"
     }
   ]
-
+ ngOnInit(): void {
+ }
   public moreNavItems = [
     {
       "imageUrl":"../../assets/request.svg",
@@ -60,5 +68,12 @@ export class HomePageComponent {
   {
     
     this.messageService.eventEmit.emit({title:item['title']})
+  }
+  public logout()
+  {
+    this.http.post('http://localhost:8000/api/logout',{},{withCredentials:true}).subscribe((data:any)=>{
+    this.router.navigateByUrl('/login', {});
+     });
+
   }
 }

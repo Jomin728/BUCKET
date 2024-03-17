@@ -27,9 +27,16 @@
     </div>
 </div>
 <div class="functionalSection">
-    <div class="searchBar">
+    <div class="bar-1">
+        <div class="searchBar">
         <img src="../../assets/search-svgrepo-com.svg" alt="">
         <input type="search" (input)="onSearch($event.target.value)" placeholder="Search">
+        </div>
+        <div class="bar-2">
+            <div>
+                <a class="link" (click)="logout()" >Log out</a>
+            </div>
+        </div>    
     </div>
     <div class="childOutlet">
         <router-outlet></router-outlet>
