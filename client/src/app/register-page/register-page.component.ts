@@ -7,11 +7,11 @@ import { HttpClient,HttpParams,HttpHeaders } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import {RouterModule} from '@angular/router';
 import { FileUploadService } from '../file-upload.service';
-
+import { LoaderComponent } from '../loader/loader.component';
 @Component({
   selector: 'app-register-page',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule,HttpClientModule,RouterModule],
+  imports: [ReactiveFormsModule,CommonModule,HttpClientModule,RouterModule,LoaderComponent],
   templateUrl: './register-page.component.html',
   styleUrl: './register-page.component.scss'
 })
@@ -23,6 +23,7 @@ constructor(public http: HttpClient,private router:Router,public routerService:F
   });
 
 }
+public showLoading = false;
 public showRequired = false;
 public showEmailSection = true;
 public showLoginSection = false;
@@ -72,7 +73,9 @@ onSubmit()
     const headers = new HttpHeaders()
     .set('Content-Type', 'application/json')
 
-  this.http.get('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/userSearch',{'params':params,'headers':headers}).subscribe((data:any)=>{
+
+  this.showLoading = true;
+  this.http.get('http://localhost:8000/api/userSearch',{'params':params,'headers':headers}).subscribe((data:any)=>{
 
   if(data.length !=0)
     {
@@ -97,6 +100,7 @@ onSubmit()
       this.showEmailSection = false;  
       this.showRequired = false
     }
+    this.showLoading = false;
   })
 }
 login()
@@ -109,12 +113,13 @@ login()
   let password:any=this.LogInForm.value.password
     const headers = new HttpHeaders()
     .set('Content-Type', 'application/json')
-
-  this.http.post('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/login',{'username':this.username,'password':password,},{'headers':headers}).subscribe((data)=>{
+    this.showLoading = true;
+    this.http.post('http://localhost:8000/api/login',{'username':this.username,'password':password,},{'headers':headers}).subscribe((data)=>{
     
     if(data['message'] == 'Login Attempt Failed.')
     return;
     setTimeout(() => {
+      this.showLoading = true;
       this.router.navigateByUrl('/home', {});
     }, 1000);
   })
@@ -128,8 +133,9 @@ register()
   
   const headers = new HttpHeaders()
   .set('Content-Type', 'application/json')
-  this.http.post('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/register',{'email':this.registerForm.value.email,'username':this.registerForm.value.username,'password':this.registerForm.value.password},{'headers':headers}).subscribe((data)=>{
-    
+  this.showLoading = true;
+  this.http.post('http://localhost:8000/api/register',{'email':this.registerForm.value.email,'username':this.registerForm.value.username,'password':this.registerForm.value.password},{'headers':headers}).subscribe((data)=>{
+    this.showLoading = false;
     if(data['message'] == 'Successful')
     this.router.navigateByUrl('/home', {});
     else

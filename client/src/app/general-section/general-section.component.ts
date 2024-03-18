@@ -10,11 +10,12 @@ import {io} from 'socket.io-client';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { NgZone } from '@angular/core';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { LoaderComponent } from '../loader/loader.component';
 @Component({
   selector: 'app-general-section',
   standalone: true,
-  imports: [HttpClientModule,CommonModule,ModalBoxComponent],
+  imports: [HttpClientModule,CommonModule,ModalBoxComponent,LoaderComponent],
   templateUrl: './general-section.component.html',
   styleUrl: './general-section.component.scss'
 })
@@ -27,6 +28,7 @@ export class GeneralSectionComponent implements OnInit,AfterViewChecked {
     });
 
   }
+  public showLoading = false;
   public title = "All Files";
   public user = {} ;
   public message$: BehaviorSubject<string> = new BehaviorSubject('');
@@ -40,7 +42,7 @@ export class GeneralSectionComponent implements OnInit,AfterViewChecked {
       }
     })
     this.ngZone.runOutsideAngular(() => {
-      this.socket = io('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308')
+      this.socket = io('http://localhost:8000')
     })
 
     this.messenger.messageListener().subscribe((data)=>{
@@ -134,7 +136,8 @@ export class GeneralSectionComponent implements OnInit,AfterViewChecked {
       const element = files[index];
       formData.append("file", element,element.name)
     }
-    this.http.post('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/file-upload',formData).subscribe((response:any)=>{
+    this.showLoading = true;
+    this.http.post('http://localhost:8000/api/file-upload',formData).subscribe((response:any)=>{
       if (response.type == HttpEventType.UploadProgress) {
         this.uploadProgress = Math.round(100 * (response.loaded / response.total));
       }
@@ -144,14 +147,16 @@ export class GeneralSectionComponent implements OnInit,AfterViewChecked {
         message:'File Upload Successful',
         notificationType:'success'
       })
+      this.fileInput.nativeElement.value = ''
+      this.showLoading = false;
     })
   }
   getUserInfo()
   {
     const headers = new HttpHeaders()
     .set('Content-Type', 'application/json')
-
-  this.http.get('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/user-info',{'headers':headers}).subscribe((data:any)=>{
+    this.showLoading = true;
+  this.http.get('http://localhost:8000/api/user-info',{'headers':headers}).subscribe((data:any)=>{
   this.user = data
   this.socket.on(this.user['email'], (message) =>{
     
@@ -162,6 +167,7 @@ export class GeneralSectionComponent implements OnInit,AfterViewChecked {
     })
     this.message$.next(message);
   });
+  this.showLoading = false;
   })
 
   }
@@ -169,28 +175,34 @@ export class GeneralSectionComponent implements OnInit,AfterViewChecked {
   {
     const headers = new HttpHeaders()
     .set('Content-Type', 'application/json')
-
-  this.http.get('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/file-details',{'headers':headers}).subscribe((data:any)=>{
+    this.showLoading = true;
+  this.http.get('http://localhost:8000/api/file-details',{'headers':headers}).subscribe((data:any)=>{
   this.filesList = [...data]
   this.filesList = [...this.filesList]
   this.ngZone.run(() => this.filesList)
   this.resetOptionsView()
+  this.showLoading = false;
   })
  }
  getSharedFilesData()
  {
   const headers = new HttpHeaders()
   .set('Content-Type', 'application/json')
-  this.http.get('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/sharedfile-details',{'headers':headers}).subscribe((data:any)=>{
+  this.showLoading = true;
+  this.http.get('http://localhost:8000/api/sharedfile-details',{'headers':headers}).subscribe((data:any)=>{
    this.filesList =[...data]
+   this.showLoading = false;
   })
  }
  getImageData()
  {
   const headers = new HttpHeaders()
   .set('Content-Type', 'application/json')
-  this.http.get('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/imagefile-data',{'headers':headers}).subscribe((data:any)=>{
+  this.showLoading = true;
+  this.http.get('http://localhost:8000/api/imagefile-data',{'headers':headers}).subscribe((data:any)=>{
    this.filesList =[...data]
+   this.showLoading = false;
+
   })
  }
   get fileList() {
@@ -212,7 +224,8 @@ export class GeneralSectionComponent implements OnInit,AfterViewChecked {
     )
     if(item['title'] == 'Download')
     {
-      this.http.get('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/file-download',{'params':params,responseType: 'blob'}).subscribe((data:any)=>{
+      this.showLoading = true;
+      this.http.get('http://localhost:8000/api/file-download',{'params':params,responseType: 'blob'}).subscribe((data:any)=>{
         
         var downloadURL = window.URL.createObjectURL(data);
         var link = document.createElement('a');
@@ -224,7 +237,7 @@ export class GeneralSectionComponent implements OnInit,AfterViewChecked {
           message:'File Download Successful',
           notificationType:'info'
         })
-
+        this.showLoading = false;
     })
     }
     if(item['title'] == 'Share')
