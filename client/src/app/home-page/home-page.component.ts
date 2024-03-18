@@ -15,6 +15,7 @@ import { LoaderComponent } from '../loader/loader.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { BehaviorSubject, debounce,debounceTime } from 'rxjs';
 import { switchMap } from 'rxjs';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-home-page',
   standalone: true,
@@ -23,7 +24,7 @@ import { switchMap } from 'rxjs';
   styleUrl: './home-page.component.scss'
 })
 export class HomePageComponent implements OnInit{
-  public searchQuery$ = new BehaviorSubject<string>('').pipe(debounceTime(1000),switchMap(id => this.http.get('http://localhost:8000/api/search-file',{withCredentials:true})),);
+  public searchQuery$ = new Subject<any>()
   constructor(public messageService:MessengerService,public http: HttpClient,public router:Router,public routerService:FileUploadService)
   {
     afterNextRender(() => {
@@ -47,10 +48,21 @@ export class HomePageComponent implements OnInit{
       title:"Shared with me"
     }
   ]
+  public searchText = ""
  ngOnInit(): void {
-  this.searchQuery$.subscribe((data)=>{
-
-  })
+    this.searchQuery$.pipe(debounceTime(1000),switchMap( (id) => {return this.getSearchApi(id)})).subscribe((data)=>{
+     console.log(data)
+     debugger
+     if(this.searchText == "")
+     {
+      this.messageService.eventEmit.emit({title:'All Files'})
+     }
+     else
+     {
+     this.messageService.eventEmit.emit({title:'Search',searchResults:data})
+     }
+     this.showLoading = false
+    })
  }
  public getSearchApi(value)
  {
@@ -59,7 +71,7 @@ export class HomePageComponent implements OnInit{
 
   const param = new HttpParams()
   .set('searchkey',value)
-  return this.http.get('http://localhost:8000/api/file-search',{'params':param,'headers':headers})
+  return this.http.get('http://http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/file-search',{'params':param,'headers':headers})
  }
   public moreNavItems = [
     {
@@ -78,6 +90,9 @@ export class HomePageComponent implements OnInit{
   public onSearch(value)
   {
     console.log(value)
+    this.showLoading = true;
+    this.searchText = value
+    this.searchQuery$.next(value)
 
   }
   public showSelection(item)
@@ -87,7 +102,7 @@ export class HomePageComponent implements OnInit{
   }
   public logout()
   {
-    this.http.post('http://localhost:8000/api/logout',{},{withCredentials:true}).subscribe((data:any)=>{
+    this.http.post('http://http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/logout',{},{withCredentials:true}).subscribe((data:any)=>{
     this.router.navigateByUrl('/login', {});
      });
 
