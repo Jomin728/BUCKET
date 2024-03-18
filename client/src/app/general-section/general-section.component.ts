@@ -42,7 +42,7 @@ export class GeneralSectionComponent implements OnInit,AfterViewChecked {
       }
     })
     this.ngZone.runOutsideAngular(() => {
-      this.socket = io('http://http://ec2-3-83-241-86.compute-1.amazonaws.com:30308')
+      this.socket = io('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308')
     })
 
     this.messenger.messageListener().subscribe((data)=>{
@@ -143,7 +143,7 @@ export class GeneralSectionComponent implements OnInit,AfterViewChecked {
       formData.append("file", element,element.name)
     }
     this.showLoading = true;
-    this.http.post('http://http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/file-upload',formData).subscribe((response:any)=>{
+    this.http.post('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/file-upload',formData).subscribe((response:any)=>{
       if (response.type == HttpEventType.UploadProgress) {
         this.uploadProgress = Math.round(100 * (response.loaded / response.total));
       }
@@ -162,7 +162,7 @@ export class GeneralSectionComponent implements OnInit,AfterViewChecked {
     const headers = new HttpHeaders()
     .set('Content-Type', 'application/json')
     this.showLoading = true;
-  this.http.get('http://http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/user-info',{'headers':headers}).subscribe((data:any)=>{
+  this.http.get('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/user-info',{'headers':headers}).subscribe((data:any)=>{
   this.user = data
   this.socket.on(this.user['email'], (message) =>{
     
@@ -182,7 +182,7 @@ export class GeneralSectionComponent implements OnInit,AfterViewChecked {
     const headers = new HttpHeaders()
     .set('Content-Type', 'application/json')
     this.showLoading = true;
-  this.http.get('http://http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/file-details',{'headers':headers}).subscribe((data:any)=>{
+  this.http.get('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/file-details',{'headers':headers}).subscribe((data:any)=>{
   this.filesList = [...data]
   this.filesList = [...this.filesList]
   this.ngZone.run(() => this.filesList)
@@ -195,7 +195,7 @@ export class GeneralSectionComponent implements OnInit,AfterViewChecked {
   const headers = new HttpHeaders()
   .set('Content-Type', 'application/json')
   this.showLoading = true;
-  this.http.get('http://http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/sharedfile-details',{'headers':headers}).subscribe((data:any)=>{
+  this.http.get('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/sharedfile-details',{'headers':headers}).subscribe((data:any)=>{
    this.filesList =[...data]
    this.showLoading = false;
   })
@@ -205,7 +205,7 @@ export class GeneralSectionComponent implements OnInit,AfterViewChecked {
   const headers = new HttpHeaders()
   .set('Content-Type', 'application/json')
   this.showLoading = true;
-  this.http.get('http://http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/imagefile-data',{'headers':headers}).subscribe((data:any)=>{
+  this.http.get('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/imagefile-data',{'headers':headers}).subscribe((data:any)=>{
    this.filesList =[...data]
    this.showLoading = false;
 
@@ -231,7 +231,7 @@ export class GeneralSectionComponent implements OnInit,AfterViewChecked {
     if(item['title'] == 'Download')
     {
       this.showLoading = true;
-      this.http.get('http://http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/file-download',{'params':params,responseType: 'blob'}).subscribe((data:any)=>{
+      this.http.get('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/file-download',{'params':params,responseType: 'blob'}).subscribe((data:any)=>{
         
         var downloadURL = window.URL.createObjectURL(data);
         var link = document.createElement('a');

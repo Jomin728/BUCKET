@@ -71,7 +71,7 @@ export class HomePageComponent implements OnInit{
 
   const param = new HttpParams()
   .set('searchkey',value)
-  return this.http.get('http://http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/file-search',{'params':param,'headers':headers})
+  return this.http.get('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/file-search',{'params':param,'headers':headers})
  }
   public moreNavItems = [
     {
@@ -102,7 +102,7 @@ export class HomePageComponent implements OnInit{
   }
   public logout()
   {
-    this.http.post('http://http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/logout',{},{withCredentials:true}).subscribe((data:any)=>{
+    this.http.post('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/logout',{},{withCredentials:true}).subscribe((data:any)=>{
     this.router.navigateByUrl('/login', {});
      });
 
