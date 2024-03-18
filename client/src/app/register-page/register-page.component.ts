@@ -136,7 +136,7 @@ register()
   this.showLoading = true;
   this.http.post('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/register',{'email':this.registerForm.value.email,'username':this.registerForm.value.username,'password':this.registerForm.value.password},{'headers':headers}).subscribe((data)=>{
     this.showLoading = false;
-    if(data['message'] == 'Successful')
+    if(data['success'] == 'Login Attempt was successful.')
     this.router.navigateByUrl('/home', {});
     else
     this.registerError = data['message']
