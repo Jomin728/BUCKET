@@ -255,13 +255,38 @@ export class GeneralSectionComponent implements OnInit,AfterViewChecked {
     }
     if(item['title'] == 'Copy Link')
     {
-      this.messenger.eventEmit.emit({
-        type:'notification',
-        message:'Notification Recieved',
-        notificationType:'info'
+      const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      const params = new HttpParams()
+      .set('key',this.filesList[index]['filename'])
+      this.showLoading = true;
+      this.http.get('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/get-url',{'headers':headers,'params':params}).subscribe((data:any)=>{
+        
+        this.copyMessage(data['url'])
+        this.showLoading = false;
+        this.messenger.eventEmit.emit({
+          type:'notification',
+          message:'Copied URL to clipboard',
+          notificationType:'info'
+        })
+  
       })
     }
     this.resetOptionsView()
 
   }
+  copyMessage(val: string){
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = val;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+  }
+
 }
