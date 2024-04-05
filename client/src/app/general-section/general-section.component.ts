@@ -164,6 +164,7 @@ export class GeneralSectionComponent implements OnInit,AfterViewChecked {
     this.showLoading = true;
   this.http.get('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/user-info',{'headers':headers}).subscribe((data:any)=>{
   this.user = data
+  this.messenger.userInfo = data;
   this.socket.on(this.user['email'], (message) =>{
     
     this.messenger.eventEmit.emit({

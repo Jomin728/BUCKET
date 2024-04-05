@@ -57,6 +57,7 @@ onSubmit()
   const headers = new HttpHeaders()
     .set('Content-Type', 'application/json')
   
+  let data = this.messenger.userInfo
   this.http.post('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/api/share-file',{...this.fileList},{'params':params,'headers':headers}).subscribe((data)=>{
     this.showModal = false;
     this.signUpForm.value.email = ''
@@ -66,6 +67,16 @@ onSubmit()
       notificationType:'info'
     })
   })
+
+  const shareNotificationParams = new HttpParams()
+  .set('email',value)
+  .set('filename',this.fileList['filename'])
+  .set('sender',data.username)
+
+  this.http.get('http://ec2-3-83-241-86.compute-1.amazonaws.com:30308/notificationApi/sendEmail',{'params':shareNotificationParams,'headers':headers}).subscribe((data)=>{
+   console.log('Email sent')
+  })
+
 
 }
 }

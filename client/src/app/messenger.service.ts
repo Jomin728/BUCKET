@@ -9,4 +9,5 @@ export class MessengerService {
   public messageListener(){
     return this.eventEmit.asObservable()
   }
+  public userInfo;
 }
