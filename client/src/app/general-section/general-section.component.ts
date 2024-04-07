@@ -104,6 +104,10 @@ export class GeneralSectionComponent implements OnInit,AfterViewChecked {
     {
       imageUrl:"../../assets/copy-link-svgrepo-com.svg",
       title:"Copy Link"
+    },
+    {
+      imageUrl:"../../assets/trash.svg",
+      title:'Delete File'
     }
   ]
   public options = 
@@ -119,6 +123,10 @@ export class GeneralSectionComponent implements OnInit,AfterViewChecked {
     {
       imageUrl:"../../assets/copy-link-svgrepo-com.svg",
       title:"Copy Link"
+    },
+    {
+      imageUrl:"../../assets/trash.svg",
+      title:'Delete File'
     }
   ]
   @HostListener('window:click', ['$event'])
@@ -272,6 +280,24 @@ export class GeneralSectionComponent implements OnInit,AfterViewChecked {
         })
   
       })
+    }
+    if(item['title'] == 'Delete File')
+    {
+      const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      const params = new HttpParams()
+      .set('id',this.filesList[index]['_id'])
+      .set('filename',this.filesList[index]['filename'])
+      this.showLoading = true;
+      this.http.post('https://kvgth62liq7ctjzriwpam5ff5a0fifpt.lambda-url.ap-south-1.on.aws',{id:this.filesList[index]['_id'],filename:this.filesList[index]['filename']}).subscribe((data:any)=>{
+        this.showLoading = false;
+        this.messenger.eventEmit.emit({
+          type:'notification',
+          message:'File Deleted',
+          notificationType:'info'
+        })
+      })
+      this.filesList = this.filesList.filter((value,indexNumber) => index!=indexNumber )
     }
     this.resetOptionsView()
 
